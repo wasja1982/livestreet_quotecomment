@@ -17,5 +17,8 @@ $config['add_link_topic'] = false;
 // Добавлять ссылку на оригинальное сообщение в личных сообщениях
 $config['add_link_talk'] = false;
 
+// При отсутствии выделенных фрагментов цитируется комментарий целиком.
+$config['copy_whole'] = true;
+
 return $config;
 ?>

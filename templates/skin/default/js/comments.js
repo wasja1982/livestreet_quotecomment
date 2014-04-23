@@ -37,6 +37,14 @@ ls.comments = (function($) {
                 quotedText.push($.trim(textRange.text));
             }
         }
+        if(!quotedText.length){
+            if (copy_whole) {
+                var comment_content = $("#comment_content_id_" + idComment).first();
+                quotedText.push($.trim(comment_content.text()));
+            } else {
+                ls.msg.error(null, selected_empty_warning);
+            }
+        }
         return quotedText;
     };
 
