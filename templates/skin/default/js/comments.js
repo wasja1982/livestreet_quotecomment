@@ -52,16 +52,17 @@ ls.comments = (function($) {
         if (this.iCurrentShowFormComment != idComment || !reply.is(':visible')) {
             this.toggleCommentForm(idComment);
         }
+        var link = (add_link ? '<a href="' + parent_url + '#comment' + idComment + '">#</a> ' : '');
         if (this.options.wysiwyg) {
             $.each(quotedText, function( index, value ) {
-                tinyMCE.activeEditor.dom.add(tinyMCE.activeEditor.getBody(), 'blockquote', {}, value);
+                tinyMCE.activeEditor.dom.add(tinyMCE.activeEditor.getBody(), 'blockquote', {}, link + value);
                 tinyMCE.activeEditor.dom.add(tinyMCE.activeEditor.getBody(), 'br', {}, '');
             });
         } else {
             var comment_text=$('#form_comment_text');
             if(comment_text.length){
                 $.each(quotedText, function( index, value ) {
-                    comment_text.val(comment_text.val() + '<blockquote>' + value + '</blockquote>\n');
+                    comment_text.val(comment_text.val() + '<blockquote>' + link + value + '</blockquote>\n');
                 });
             }
         }
