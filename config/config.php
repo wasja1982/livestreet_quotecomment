@@ -2,7 +2,7 @@
 /**
  * Quote Comment - цитирование комментариев
  *
- * Версия:	1.0.0
+ * Версия:	1.0.1
  * Автор:	Александр Вереник
  * Профиль:	http://livestreet.ru/profile/Wasja/
  * GitHub:	https://github.com/wasja1982/livestreet_quotecomment
