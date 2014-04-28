@@ -60,17 +60,30 @@ ls.comments = (function($) {
         if (this.iCurrentShowFormComment != idComment || !reply.is(':visible')) {
             this.toggleCommentForm(idComment);
         }
-        var link = (add_link ? '<a href="' + parent_url + '#comment' + idComment + '">#</a> ' : '');
+        var comment_author = $.trim($("#comment_id_" + idComment + " .comment-author").first().text());
+        var comment_url = parent_url + '#comment' + idComment;
+        var link = ((add_link && !add_name) ? '<a href="' + comment_url + '">#</a> ' : '');
         if (this.options.wysiwyg) {
             $.each(quotedText, function( index, value ) {
+                if (add_name) {
+                    // TODO: Тег LS не отображается в TinyMCE
+                    // tinyMCE.activeEditor.dom.add(tinyMCE.activeEditor.getBody(), 'ls', {'user' : comment_author}, '');
+                    tinyMCE.activeEditor.execCommand('mceInsertContent', false, '@' + comment_author + ' ');
+                    if (add_link) {
+                        tinyMCE.activeEditor.dom.add(tinyMCE.activeEditor.getBody(), 'a', {"href" : comment_url}, add_name_message);
+                    } else {
+                        tinyMCE.activeEditor.execCommand('mceInsertContent', false, add_name_message);
+                    }
+                }
                 tinyMCE.activeEditor.dom.add(tinyMCE.activeEditor.getBody(), 'blockquote', {}, link + value);
                 tinyMCE.activeEditor.dom.add(tinyMCE.activeEditor.getBody(), 'br', {}, '');
             });
         } else {
+            var name = (add_name ? '<ls user="' + comment_author + '" /> ' + (add_link ? '<a href="' + comment_url + '">' : '') + add_name_message + (add_link ? '</a>' : '') : '');
             var comment_text=$('#form_comment_text');
             if(comment_text.length){
                 $.each(quotedText, function( index, value ) {
-                    comment_text.val(comment_text.val() + '<blockquote>' + link + value + '</blockquote>\n');
+                    comment_text.val(comment_text.val() + name + '<blockquote>' + link + value + '</blockquote>\n');
                 });
             }
         }

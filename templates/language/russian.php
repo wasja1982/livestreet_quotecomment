@@ -15,6 +15,7 @@
 return array(
     'quote' => 'Цитировать',
     'selected_empty' => 'Выделите текст для цитирования.',
+    'name_message' => 'писал(а):',
 );
 
 ?>
